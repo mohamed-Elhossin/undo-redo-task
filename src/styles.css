@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
+body {
+  background-color: black;
+  color: white;
+}
+
+.card {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.card-body {
+  background-color: #555;
+  color: white;
+}
+
+.form-group {
+  margin: 10px 0px;
+}
+
+.form-control {
+  margin: 12px 0px;
+}
