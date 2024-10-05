@@ -1,3 +1,6 @@
 export class User {
-  name!: string; email!: string; age!: number; terms!: boolean
+  name!: string | null;
+  email!: string | null;
+  age!: number | null;
+ 
 }

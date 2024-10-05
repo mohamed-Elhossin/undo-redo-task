@@ -5,7 +5,6 @@ import { User } from '../models/user';
 @Component({
   selector: 'app-undo-form',
   standalone: true,
-
   templateUrl: './undo-form.component.html',
   styleUrl: './undo-form.component.css',
   imports: [ReactiveFormsModule]
@@ -13,7 +12,7 @@ import { User } from '../models/user';
 export class UndoFormComponent {
 
   message = "";
-  // Define the FormGroup with validators
+
   myForm = new FormGroup({
     name: new FormControl<string | null>("", Validators.required),
     email: new FormControl<string | null>("", [Validators.required, Validators.email]),
@@ -22,43 +21,43 @@ export class UndoFormComponent {
   });
 
   undoStatus = true;
- redoStatus = true;
-  // Type the array correctly to store the values from myForm
-  undoArray: Array<{ name: string | null, email: string | null, age: number | null }> = [];
-  // New redoArray to store removed items from undoArray
-  redoArray: Array<{ name: string | null, email: string | null, age: number | null }> = [];
+  redoStatus = true;
+
+  undoArray: Array<User> = [];
+
+  redoArray: Array<User> = [];
 
   constructor() { }
 
-  // Save form values to undoArray when called
+  // Save value in first time in Undo Array
   saveValuesInArray() {
     if (this.myForm.valid) {
-      // Push form values into the array
+
       this.undoArray.push(this.myForm.value as {
         name: string | null;
         email: string | null;
         age: number | null;
 
       });
-      console.log("Form Values:", this.myForm.value);
-      console.log("Updated undoArray:", this.undoArray);
+      // console.log("Form Values:", this.myForm.value);
+      console.log("undoArray After Add value :", this.undoArray);
       this.myForm.reset();
       this.message = "";
       this.undoStatus = false;
     } else {
-      this.message = "Form is not valid";
+      this.message = "Form is Invalid";
 
     }
   }
 
   restoreAndRemoveLastObject() {
     if (this.undoArray.length > 0) {
-      // Remove the last object from the array and get its value
+      // To remove last Object
       const lastObject = this.undoArray.pop();
 
       if (lastObject) {
         this.redoArray.push(lastObject);
-        // Update form controls with the values from the last object
+        // Update form with the values from the last object
         this.myForm.patchValue({
           name: lastObject.name,
           email: lastObject.email,
@@ -83,14 +82,12 @@ export class UndoFormComponent {
 
   restoreAndRemoveLastObjectInRendo() {
     if (this.redoArray.length > 0) {
-      // Remove the last object from the array and get its value
       const lastObject = this.redoArray.pop();
 
       if (lastObject) {
         this.redoArray.push(lastObject);
 
 
-        // Update form controls with the values from the last object
         this.myForm.patchValue({
           name: lastObject.name,
           email: lastObject.email,
